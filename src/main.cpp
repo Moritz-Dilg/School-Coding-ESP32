@@ -1,6 +1,7 @@
 #include <Arduino.h>
 
 #include <ESP_NOW.hpp>
+#include <FIR.hpp>
 #include <MQTT.hpp>
 #include <_CAN.hpp>
 
@@ -29,15 +30,18 @@
 // ESP_NOW esp_now = ESP_NOW(OnDataRecvDefaultCB, OnDataSentDefaultCB);
 
 /*--MQTT--*/
-void callback(char *topic, byte *payload, unsigned int length) {
-	Serial.print("[" + String(topic) + "] ");
-	for (int i = 0; i < length; i++) {
-		Serial.print((char)payload[i]);
-	}
-	Serial.println();
-}
+// void callback(char *topic, byte *payload, unsigned int length) {
+//	Serial.print("[" + String(topic) + "] ");
+//	for (int i = 0; i < length; i++) {
+//		Serial.print((char)payload[i]);
+//	}
+//	Serial.println();
+// }
+//
+// MQTT mqtt = MQTT(callback);
 
-MQTT mqtt = MQTT(callback);
+/*--FIR--*/
+FIR fir = FIR();
 
 void setup() {
 	/*--CAN--*/
@@ -47,7 +51,10 @@ void setup() {
 	// esp_now.init();
 
 	/*--MQTT--*/
-	mqtt.connect();
+	// mqtt.connect();
+
+	/*--FIR--*/
+	fir.init();
 }
 
 void loop() {
@@ -65,6 +72,9 @@ void loop() {
 	// delay(1000);
 
 	/*--MQTT--*/
-	mqtt.publish("DIC/Button", "Hello World!");
-	mqtt.loop();
+	// mqtt.publish("DIC/Button", "Hello World!");
+	// mqtt.loop();
+
+	/*--FIR--*/
+	fir.loop();
 }
