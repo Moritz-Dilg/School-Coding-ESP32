@@ -2,6 +2,7 @@
 
 #include <ESP_NOW.hpp>
 #include <FIR.hpp>
+#include <IIR.hpp>
 #include <MQTT.hpp>
 #include <_CAN.hpp>
 
@@ -41,7 +42,10 @@
 // MQTT mqtt = MQTT(callback);
 
 /*--FIR--*/
-FIR fir = FIR();
+// FIR fir = FIR();
+
+/*--IIR--*/
+IIR iir = IIR();
 
 void setup() {
 	/*--CAN--*/
@@ -54,7 +58,10 @@ void setup() {
 	// mqtt.connect();
 
 	/*--FIR--*/
-	fir.init();
+	// fir.init();
+
+	/*--IIR--*/
+	iir.init();
 }
 
 void loop() {
@@ -76,5 +83,8 @@ void loop() {
 	// mqtt.loop();
 
 	/*--FIR--*/
-	fir.loop();
+	// fir.loop();
+
+	/*--IIR--*/
+	iir.loop();
 }
