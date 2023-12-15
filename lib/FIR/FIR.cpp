@@ -58,6 +58,8 @@ void FIR::loop() {
 
 	float inputValue = analogRead(A0);
 	float filteredValue = this->updateFilter(inputValue);
+	if (filteredValue < 0) filteredValue = 0;
+
 	// Skaliere den gefilterten Wert auf den DAC-Bereich (0-4095)
 	int dacValue = map(filteredValue, 0, 4095, 0, 255);
 	dacWrite(26, dacValue);
